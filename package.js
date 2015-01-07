@@ -8,6 +8,10 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.2.1');
   api.use(['templating'], 'client');
+  api.addFiles('lib/0.2.2/js/epiceditor.js', 'client');
+  api.addFiles('lib/0.2.2/themes/base/epiceditor.css', 'client', {isAsset: true});
+  api.addFiles('lib/0.2.2/themes/preview/github.css', 'client', {isAsset: true});
+  api.addFiles('lib/0.2.2/themes/editor/epic-dark.css', 'client', {isAsset: true});
   api.addFiles('d4nyll:epic.js', 'client');
   api.export('Epic', 'client');
 });
