@@ -1,56 +1,66 @@
-Template.registerHelper('epic', function(params) {
+// Using var to ensure variables are file-scope
+var opts;
 
-	// Some settings which needs to be overridden
-	var opts = {
+// From [Stack Overflow](http://stackoverflow.com/a/383245/3966682)
+var MergeRecursive = function (obj1, obj2) {
+	for (var p in obj2) {
+		try {
+			if (obj2[p].constructor == Object) {
+				obj1[p] = MergeRecursive(obj1[p], obj2[p]);
+			} else {
+				obj1[p] = obj2[p];
+			}
+		} catch(e) {
+			obj1[p] = obj2[p];
+		}
+	}
+	return obj1;
+}
+
+Template.epic.created = function () {
+	var params = this.data;
+	opts = {
 		container: 'epiceditor',
+		textarea: 'epicarea',
 		basePath: '/packages/d4nyll_epic/lib/0.2.2'
 	}
-
-	// Creates container element
-	var container = document.createElement('div');
-	container.id += 'epiceditor';
-
-	// Defaults
-	// Append container to body
-	var appendTo = document.body;
-
-	// {{epic}} - no parameter
-	if(params == undefined && typeof params == 'undefined') {
-
-	}
-
-	// {{epic "abc"}} - string
+	// {{> epic "abc"}} - string
 	if(typeof params == 'string') {
 
 	}
 
-	if(typeof params == 'object') {
+	// {{> epic true}} - boolean
+	if(typeof params == 'boolean') {
 
-		// For paramters separated by spaces, only the first parameter gets recognized
-		// {{epic abc}} - where abc is an undefined variable
+	}
+
+	// {{> epic 123}} - number
+	if(typeof params == 'number') {
+		
+	}
+
+	if(typeof params == 'object') {
+		// {{> epic}}, {{> epic abc}} - where abc is an undefined variable
 		if(params == null) {
 
 		}
 
 		if(params != null) {
+			// For parameters given as an array, passed in using template helpers
+			// {{> epic abc}} - where abc is an array passed in using a helper
+			if(typeof params[0] === 'string' || typeof params[0] === 'number') {
 
-			// For parameters given as key=value pairs, all parameters are returned. Values can be objects, arrays
-			// {{epic abc="def" hij="klm"}} - key/value pairs
-			if(params.hash != undefined) {
-				console.log(params.hash);
 			}
-
-			// For parameters given as objects, arrays, passed in using template helpers
-			// {{epic abc}} - where abc is an object/array passed in using a helper
+			// For parameters given as key=value pairs, it will be turned into an object
+			// {{epic abc="def" hij="klm"}} - key/value pairs, or
+			// {{> epic obj}} - where obj is an object defined in a helper
 			else {
-
-			}
+				opts = MergeRecursive(opts, params);
+			}	
 		}
 	}
+};
 
-	// Add the container
-	appendTo.appendChild(container);
-
-	// Load the editor
+Template.epic.rendered = function () {
 	var editor = new EpicEditor(opts).load();
-});
+};
