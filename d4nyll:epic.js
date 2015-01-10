@@ -1,5 +1,12 @@
-// Using var to ensure variables are file-scope
-var opts;
+////////////////
+/* TEMPLATING */
+////////////////
+
+// Default options, each instance of the editor shall get a COPY of this
+var opts = {
+	textarea: 'epicarea',
+	basePath: '/packages/d4nyll_epic/lib/0.2.2'
+};
 
 // From [Stack Overflow](http://stackoverflow.com/a/383245/3966682)
 var MergeRecursive = function (obj1, obj2) {
@@ -17,13 +24,14 @@ var MergeRecursive = function (obj1, obj2) {
 	return obj1;
 }
 
+// From [Stack Overflow](http://stackoverflow.com/a/4793630/3966682)
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
 Template.epic.created = function () {
 	var params = this.data;
-	opts = {
-		container: 'epiceditor',
-		textarea: 'epicarea',
-		basePath: '/packages/d4nyll_epic/lib/0.2.2'
-	}
+	
 	// {{> epic "abc"}} - string
 	if(typeof params == 'string') {
 
@@ -55,7 +63,8 @@ Template.epic.created = function () {
 			// {{epic abc="def" hij="klm"}} - key/value pairs, or
 			// {{> epic obj}} - where obj is an object defined in a helper
 			else {
-				opts = MergeRecursive(opts, params);
+				opts.container = 'epiceditor';
+				opts = MergeRecursive(params, opts);
 			}	
 		}
 	}
@@ -64,3 +73,32 @@ Template.epic.created = function () {
 Template.epic.rendered = function () {
 	var editor = new EpicEditor(opts).load();
 };
+
+
+/////////
+/* API */
+/////////
+Epic = {};
+
+Epic.checkExported = function() {
+	console.log('Epic object exported');
+}
+
+// Takes the ID of the container, with an options object
+Epic.create = function(id, options) {
+
+	// Creates the textarea for the editor to sync to
+	var container = document.getElementById(id);
+	var textarea = document.createElement("textarea");
+	textarea.id = "epicarea";
+	insertAfter(textarea, container);
+
+	// Adds any user-defined options
+	options = MergeRecursive(options, opts);
+	options.container = id;
+
+	// Creates and loads the editor, returning the editor object
+	var editor = new EpicEditor(options);
+	editor.load();
+	return editor;
+}
