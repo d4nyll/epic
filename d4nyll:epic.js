@@ -1,3 +1,17 @@
+////////////
+/* COMMON */
+////////////
+
+Epic = {};
+
+// Object containing information for all created (not necessarily loaded) editors
+editorInstances = {};
+
+// Returns all instances of the editor
+Epic.getInstances = function() {
+	return editorInstances;
+}
+
 ////////////////
 /* TEMPLATING */
 ////////////////
@@ -78,10 +92,8 @@ Template.epic.rendered = function () {
 /////////
 /* API */
 /////////
-Epic = {};
-
 Epic.checkExported = function() {
-	console.log('Epic object exported');
+	return 'Epic object exported';
 }
 
 // Takes the ID of the container, with an options object
