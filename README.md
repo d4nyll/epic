@@ -10,13 +10,41 @@ A JavaScript Markdown editor for [Meteor](https://github.com/meteor/meteor), usi
 
 ## Usage
 
-As you may have noticed, the package version is at `0.2.0-alpha`, which means it is still under **active development**. The API is not guaranteed to stay the same. It is highly **NOT** recommended to use this for production.
+### Inside a template
 
-To use `d4nyll:epic`, simply add `{{> epic}}` inside the your template. The editor will append a template to where the placeholder is. A textarea with a class and id of `epicarea` will also be added, and syncs with the editor. You can retrieve the value of the editor from this textarea.
+To use `d4nyll:epic` inside a template, simply add `{{> epic}}` inside the your template. The editor will append a template to where the placeholder is. A textarea with a class of `epicarea` will also be added, and syncs with the editor. You can retrieve the value of the editor from this textarea.
+
+Multiple editors can be added on the same page, and will have the `id` of `epiceditor[a-number]` (e.g. `epiceditor0`, `epiceditor1`). Each editor will be synced with a textarea with the corresponding `id` (e.g. `epiceditor0` syncs with `epicarea0`)
+
+### Using the API
+
+You can render an editor inside an element using `Epic.create(id, options)`. Pass in the `id` of the containing `div` element, and also an object containing any options.
+
+Here the textarea will have an id of `epicarea[id-of-container]`. For example, an editor inside `<div id="epicdiv">` will sync with a textarea with the `id` of `epicareaepicdiv`.
 
 ### Options
 
 You may use a Meteor template helper to define an object which can be passed to `epic` using `{{> epic obj}}`, where `obj` is the object. You can specify the [same set of options](https://github.com/OscarGodson/EpicEditor#epiceditoroptions) as EpicEditor. Any erroneous properties will be ignored.
+
+#### Using your own theme
+
+To use your own theme, you must place **all** your theme's CSS file inside the `public` directory. Then create an object containing the options, which should include **all** the themes - i.e. If you are using a custom `editor` theme, you would also need to place the `base` and `preview` theme in the relevant directory also.
+
+Here's an example taken from `/example/testing/`:
+
+    Template.epicCreate.rendered = function () {
+    	var opts = {	
+    		basePath: '/epic/themes',
+    		theme: {
+    			base: '/base/epiceditor.css',
+    			preview: '/preview/github.css',
+    			editor: '/editor/epic-custom.css'
+    		}
+    	};
+    	Epic.create('epicCreateContainer', opts);
+    };
+
+Here, the `editor` CSS files are placed inside the `/public/epic/themes/editor/epic-custom.css` of the application.
 
 ## Contributors
 
