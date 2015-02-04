@@ -1,7 +1,7 @@
 Package.describe({
   name: 'd4nyll:epic',
   summary: 'A JavaScript Markdown editor for Meteor, using EpicEditor.',
-  version: '0.2.0-alpha',
+  version: '0.2.1',
   git: 'https://github.com/d4nyll/epic.git'
 });
 
