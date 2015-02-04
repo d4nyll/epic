@@ -128,7 +128,6 @@ Template.epic.rendered = function () {
 		textarea.id = "epicarea" + id.toString();
 		opts.container = "epiceditor" + id.toString();
 		opts.textarea = "epicarea" + id.toString();
-		console.log(opts);
 		var editor = new EpicEditor(opts).load();
 		Epic.editorInstances.push(editor);
 	}
