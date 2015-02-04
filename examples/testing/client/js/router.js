@@ -5,3 +5,7 @@ Router.route('/', function () {
 Router.route('/epicCreate', function () {
   this.render('epicCreate');
 });
+
+Router.route('/epicMultiple', function () {
+  this.render('epicMultiple');
+});
