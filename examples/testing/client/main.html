@@ -1,19 +1,24 @@
 <template name="main">
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
+{{#markdown}}
+# Welcome to `d4nyll:epic`!
+
+So Meteor already has a [`markdown`](http://docs.meteor.com/#/full/markdown) package that lets you write in Markdown.
+
+But what if you'd like to let users write in Markdown too? Like this one below!
+{{/markdown}}
 {{> epic}}
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
-<p>..................</p>
+{{#markdown}}
+The editor above was added simply by placing &#x7B;&#x7B;&#x3E;&#x20;&#x65;&#x70;&#x69;&#x63;&#x7D;&#x7D; inside the template, which will output something like this: `{{> epic}}`
+
+If you inspect this page, you will see the `textarea`, which is `display: none` by default. It will sync its content to the text area as you type.
+
+Other stuff:
+
+1. <a href="./epicMultiple">You can have multiple editors on the same page</a>
+2. <a href="./epicCreate">Customize the look using your own theme</a>
+
+<sub>
+This editor is a Meteor package built around [EpicEditor](https://github.com/OscarGodson/EpicEditor).
+</sub>
+{{/markdown}}
 </template>
