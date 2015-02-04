@@ -10,9 +10,9 @@ A JavaScript Markdown editor for [Meteor](https://github.com/meteor/meteor), usi
 
 ## Demo
 
-[Basic](http://epiceditor.meteor.com)
-[Own theme](http://epiceditor.meteor.com/epicCreate)
-[Multiple editors](http://epiceditor.meteor.com/epicMultiple)
+* [Basic](http://epiceditor.meteor.com)
+* [Own theme](http://epiceditor.meteor.com/epicCreate)
+* [Multiple editors](http://epiceditor.meteor.com/epicMultiple)
 
 ## Usage
 
