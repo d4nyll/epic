@@ -5,11 +5,17 @@
 Epic = {};
 
 // Object containing information for all created (not necessarily loaded) editors
-editorInstances = {};
+Epic.editorInstances = [];
+
+Epic.editorIds = [];
 
 // Returns all instances of the editor
 Epic.getInstances = function() {
-	return editorInstances;
+	return Epic.editorInstances;
+}
+
+Epic.getEditorIds = function() {
+	return Epic.editorIds;
 }
 
 ////////////////
@@ -86,8 +92,46 @@ Template.epic.created = function () {
 	}
 };
 
+// Generates random unique number - unused, maybe removed in future
+var getRandUniqueId = function() {
+	var randNum;
+	var i = 0;
+	// Run until a unique number is returned. Limited to 50 tries.
+	do {
+		randNum = Math.floor(Math.random() * 999);
+		if(Epic.editorIds.indexOf(randNum) == -1) {
+			return randNum;
+		}
+		i++;
+	}
+	while (i < 50);
+}
+
+// Generates ordered unique number
+var getUniqueId = function() {
+	// Run until a unique number is returned. Limited to 50 tries.
+	for(var i = 0; i < 999; i++) {
+		if(Epic.editorIds.indexOf(i) == -1) {
+			// Push the number as soon as confirmed
+			Epic.editorIds.push(i);
+			return i;
+		}
+	}
+}
+
 Template.epic.rendered = function () {
-	var editor = new EpicEditor(opts).load();
+	var id = getUniqueId();
+	if(typeof id === 'number') {
+		var container = this.find('.epiceditor');
+		container.id = "epiceditor" + id.toString();
+		var textarea = this.find("textarea");
+		textarea.id = "epicarea" + id.toString();
+		opts.container = "epiceditor" + id.toString();
+		opts.textarea = "epicarea" + id.toString();
+		console.log(opts);
+		var editor = new EpicEditor(opts).load();
+		Epic.editorInstances.push(editor);
+	}
 };
 
 
@@ -104,12 +148,13 @@ Epic.create = function(id, options) {
 	// Creates the textarea for the editor to sync to
 	var container = document.getElementById(id);
 	var textarea = document.createElement("textarea");
-	textarea.id = "epicarea";
+	textarea.id = "epicarea" + id;
 	insertAfter(textarea, container);
 
 	// Adds any user-defined options
 	options = MergeRecursive(options, opts);
-	options.container = id;
+	options.container = container.id;
+	options.textarea = textarea.id;
 
 	// Creates and loads the editor, returning the editor object
 	var editor = new EpicEditor(options);
