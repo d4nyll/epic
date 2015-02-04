@@ -1,5 +1,7 @@
 # epic
 
+[![Build Status](https://travis-ci.org/d4nyll/epic.svg?branch=master)](https://travis-ci.org/d4nyll/epic)
+
 A JavaScript Markdown editor for [Meteor](https://github.com/meteor/meteor), using [EpicEditor](https://github.com/OscarGodson/EpicEditor).
 
 ## Installation
@@ -35,7 +37,3 @@ Until Velocity supports TinyTest, we will have to run TinyTest 'outside' of Velo
     meteor test-packages ./
 
 You can add more tests by editing `d4nyll:epic-tests.js`, or write into your own file and add a `api.addFiles('your-test.js', 'client');` line into `package.js` inside the `Package.onTest(function(api){})` block.
-
-
-
-[![Build Status](https://travis-ci.org/d4nyll/epic.svg?branch=master)](https://travis-ci.org/d4nyll/epic)
