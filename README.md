@@ -13,6 +13,8 @@ A JavaScript Markdown editor for [Meteor](https://github.com/meteor/meteor), usi
 * [Basic](http://epiceditor.meteor.com)
 * [Own theme](http://epiceditor.meteor.com/epicCreate)
 * [Multiple editors](http://epiceditor.meteor.com/epicMultiple)
+* [Preload text (in template)](http://epiceditor.meteor.com/preload)
+* [Preload text (with API)](http://epiceditor.meteor.com/preloadapi)
 
 ## Usage
 
@@ -31,6 +33,23 @@ Here the textarea will have an id of `epicarea[id-of-container]`. For example, a
 ### Options
 
 You may use a Meteor template helper to define an object which can be passed to `epic` using `{{> epic obj}}`, where `obj` is the object. You can specify the [same set of options](https://github.com/OscarGodson/EpicEditor#epiceditoroptions) as EpicEditor. Any erroneous properties will be ignored.
+
+#### Preloading text
+
+You can preload the editor with some text, either dynamically, or use existing text. You can do this through the template by adding `{{> epic 'A string representing the markdown'}}` or in the API by adding a string to the `preloadText` property of the `opts` object.
+
+**In template**
+
+    {{> epic 'This is preloaded text!\nCan even do new lines!'}}
+
+**Using the API**
+
+    Template.preloadapi.rendered = function () {
+        var opts = {
+            preloadText: 'This is preloaded text using the API!\nCan even do new lines!'
+        };
+        Epic.create('preloadapicontainer', opts);
+    };
 
 #### Using your own theme
 
