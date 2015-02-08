@@ -28,6 +28,8 @@ var opts = {
 	basePath: '/packages/d4nyll_epic/lib/0.2.2'
 };
 
+var preloadText = '';
+
 // From [Stack Overflow](http://stackoverflow.com/a/383245/3966682)
 var MergeRecursive = function (obj1, obj2) {
 	for (var p in obj2) {
@@ -56,7 +58,7 @@ Template.epic.created = function () {
 	
 	// {{> epic "abc"}} - string
 	if(typeof params == 'string') {
-
+		preloadText = params;
 	}
 
 	// {{> epic true}} - boolean
@@ -126,6 +128,7 @@ Template.epic.rendered = function () {
 		container.id = "epiceditor" + id.toString();
 		var textarea = this.find("textarea");
 		textarea.id = "epicarea" + id.toString();
+		textarea.value = preloadText;
 		opts.container = "epiceditor" + id.toString();
 		opts.textarea = "epicarea" + id.toString();
 		var editor = new EpicEditor(opts).load();
@@ -148,6 +151,9 @@ Epic.create = function(id, options) {
 	var container = document.getElementById(id);
 	var textarea = document.createElement("textarea");
 	textarea.id = "epicarea" + id;
+	if(typeof options.preloadText === 'string') {
+		textarea.value = options.preloadText;
+	}
 	insertAfter(textarea, container);
 
 	// Adds any user-defined options
