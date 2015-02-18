@@ -1,5 +1,7 @@
 # epic
 
+[![Join the chat at https://gitter.im/d4nyll/epic](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/d4nyll/epic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/d4nyll/epic.svg?branch=master)](https://travis-ci.org/d4nyll/epic)
 
 A JavaScript Markdown editor for [Meteor](https://github.com/meteor/meteor), using [EpicEditor](https://github.com/OscarGodson/EpicEditor).
