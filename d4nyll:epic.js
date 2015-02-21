@@ -166,3 +166,10 @@ Epic.create = function(id, options) {
 	editor.load();
 	return editor;
 }
+
+Epic.update = function(content, editor) {
+	if(editor === undefined) {
+		var editor = Epic.getInstances()[0];	
+	}
+	editor.importFile(editor.settings.file.name, content);
+}
