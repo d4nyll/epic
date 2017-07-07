@@ -1,6 +1,9 @@
 # epic
 
-[![Join the chat at https://gitter.im/d4nyll/epic](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/d4nyll/epic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+* This repository uses a legacy syntax used in Meteor **1.0.x**
+* This repository is **unmaintained**
+* It appears Epic Editor is also **unmaintained** - no commits in any branch since 26 Sep 2016
+* I'd recommend using **React** as the view layer for your Meteor application, in which case you can simply use a component like [react-md-editor](https://github.com/JedWatson/react-md-editor) by importing it directly from npm
 
 [![Build Status](https://travis-ci.org/d4nyll/epic.svg?branch=master)](https://travis-ci.org/d4nyll/epic)
 
